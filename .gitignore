@@ -278,6 +278,10 @@ psd
 thumb
 sketch
 
+### VSCODE ###
+
+.vscode/
+
 ### Vuejs ###
 # Recommended template: Node.gitignore
 
