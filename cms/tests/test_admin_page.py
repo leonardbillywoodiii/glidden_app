@@ -34,3 +34,18 @@ class AdminSiteTests(TestCase):
         self.assertContains(responce, self.user.first_name)
         self.assertContains(responce, self.user.last_name)
         self.assertContains(responce, self.user.email)
+
+    def test_user_change_page(self):
+        self.setup()
+        url = reverse('admin:cms_userprofile_change',
+                      args=[self.user.id])
+        responce = self.client.get(url)
+
+        self.assertEqual(responce.status_code, 200)
+
+    def test_user_add_page(self):
+        self.setup()
+        url = reverse('admin:cms_userprofile_add')
+        responce = self.client.get(url)
+
+        self.assertEqual(responce.status_code, 200)
