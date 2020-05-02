@@ -30,4 +30,3 @@ class ModelTests(TestCase):
                 first_name='Elias',
                 last_name='Smith',
                 password='TestPassword')
-#
