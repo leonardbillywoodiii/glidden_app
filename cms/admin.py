@@ -30,5 +30,18 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
+    add_fieldsets = (
+        (None, {
+            'fields': (
+                'email', 'password',
+            ),
+        }),
+        (gettext('Personal Info'), {
+            'fields': (
+                'first_name', 'last_name',
+            ),
+        }),
+    )
+
 
 admin.site.register(models.UserProfile, UserAdmin)
