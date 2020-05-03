@@ -6,6 +6,7 @@ from django.urls import reverse
 class AdminSiteTests(TestCase):
 
     def setup(self):
+        """Helper function that makes a user and superuser"""
         self.client = Client()
         self.admin_user = get_user_model().objects.create_superuser(
             email='test.admin@test.com',
@@ -23,6 +24,7 @@ class AdminSiteTests(TestCase):
         )
 
     def test_users_listed(self):
+        """Test users successfuly created and listed in Admin Page"""
         self.setup()
         url = reverse('admin:cms_userprofile_changelist')
         responce = self.client.get(url)
@@ -36,6 +38,7 @@ class AdminSiteTests(TestCase):
         self.assertContains(responce, self.user.email)
 
     def test_user_change_page(self):
+        """Test Admin change page working correctly"""
         self.setup()
         url = reverse('admin:cms_userprofile_change',
                       args=[self.user.id])
@@ -44,6 +47,7 @@ class AdminSiteTests(TestCase):
         self.assertEqual(responce.status_code, 200)
 
     def test_user_add_page(self):
+        """Test Admin add page is working correctly"""
         self.setup()
         url = reverse('admin:cms_userprofile_add')
         responce = self.client.get(url)
