@@ -6,7 +6,8 @@ from django.db import models
 class UserProfileManager(BaseUserManager):
     """Manager for UserProfile Model"""
 
-    def create_user(self, email, first_name, last_name, password):
+    def create_user(
+            self, email, first_name, last_name, birthday, sex, password):
         """Create a new user profile"""
         if not email:
             raise ValueError('Users must have an email address')
@@ -15,15 +16,20 @@ class UserProfileManager(BaseUserManager):
         user = self.model(
             email=email,
             first_name=first_name,
-            last_name=last_name)
+            last_name=last_name,
+            birthday=birthday,
+            sex=sex
+        )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, password):
+    def create_superuser(
+            self, email, first_name, last_name, birthday, sex, password):
         """Create and save new superuser"""
-        user = self.create_user(email, first_name, last_name, password)
+        user = self.create_user(
+            email, first_name, last_name, birthday, sex, password)
 
         user.is_superuser = True
         user.is_staff = True
@@ -37,13 +43,15 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    birthday = models.DateField()
+    sex = models.CharField(max_length=10)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserProfileManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'birthday', 'sex']
 
     def get_full_name(self):
         """Retrieve full name"""
