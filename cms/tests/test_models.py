@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from datetime import datetime
 
 
 class ModelTests(TestCase):
@@ -11,11 +12,15 @@ class ModelTests(TestCase):
         password = 'TestPassword'
         first_name = 'Joe'
         last_name = 'Smith'
+        birthday = datetime(1983, 4, 17)
+        sex = 'male'
         user = get_user_model().objects.create_user(
             email=email,
             password=password,
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
+            birthday=birthday,
+            sex=sex
         )
 
         self.assertEqual(user.email, email)
@@ -29,7 +34,10 @@ class ModelTests(TestCase):
                 email=None,
                 first_name='Elias',
                 last_name='Smith',
-                password='TestPassword')
+                password='TestPassword',
+                birthday=datetime(1983, 4, 17),
+                sex='male'
+            )
 
     def test_create_new_superuser_successfull(self):
         """Test creating a new superuser"""
@@ -37,7 +45,9 @@ class ModelTests(TestCase):
             email='test@test.com',
             first_name='joe',
             last_name='bloe',
-            password='!@#$%^&*()'
+            password='!@#$%^&*()',
+            birthday=datetime(1983, 4, 17),
+            sex='male'
         )
 
         self.assertTrue(user.is_superuser)
