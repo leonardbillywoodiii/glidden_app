@@ -15,7 +15,7 @@ class UserAdmin(BaseUserAdmin):
         }),
         (gettext('Personal Info'), {
             'fields': (
-                'first_name', 'last_name',
+                'first_name', 'last_name', 'birthday', 'sex',
             ),
         }),
         (gettext('Permissions'), {
@@ -38,7 +38,7 @@ class UserAdmin(BaseUserAdmin):
         }),
         (gettext('Personal Info'), {
             'fields': (
-                'first_name', 'last_name',
+                'first_name', 'last_name', 'birthday', 'sex',
             ),
         }),
     )
