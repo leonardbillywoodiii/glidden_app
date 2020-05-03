@@ -1,6 +1,7 @@
-from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
+from django.test import Client, TestCase
 from django.urls import reverse
+from datetime import datetime
 
 
 class AdminSiteTests(TestCase):
@@ -12,7 +13,9 @@ class AdminSiteTests(TestCase):
             email='test.admin@test.com',
             first_name='Elias',
             last_name='Jackson',
-            password='testpassword'
+            password='testpassword',
+            birthday=datetime(1983, 4, 17),
+            sex='male'
         )
 
         self.client.force_login(self.admin_user)
@@ -20,7 +23,9 @@ class AdminSiteTests(TestCase):
             email='test.user@test.com',
             first_name='John',
             last_name='Smith',
-            password='anotherpassword'
+            password='testpassword',
+            birthday=datetime(1983, 4, 17),
+            sex='male'
         )
 
     def test_users_listed(self):
