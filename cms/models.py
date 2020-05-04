@@ -67,3 +67,8 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         """Return String representation"""
         return self.email
 
+
+class PhoneNumber(models.Model):
+    number = models.CharField(max_length=20)
+    number_type = models.CharField(max_length=20)
+    UserProfile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
