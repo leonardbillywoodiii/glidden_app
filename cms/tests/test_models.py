@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from cms.models import UserProfile, PhoneNumber
+from cms.models import PhoneNumber, UserProfile
 
 
 class ModelTests(TestCase):
