@@ -44,7 +44,9 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     birthday = models.DateField()
-    sex = models.CharField(max_length=10)
+    sex = models.CharField(max_length=10,
+                           choices=(('M', 'Male'), ('F', 'Female'),)
+                           )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -64,3 +66,4 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def ___str___(self):
         """Return String representation"""
         return self.email
+
