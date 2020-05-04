@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from cms.models import UserProfile
+from cms.models import UserProfile, PhoneNumber
 
 
 class ModelTests(TestCase):
@@ -60,3 +60,16 @@ class ModelTests(TestCase):
 
         self.assertTrue(self.admin_user.is_superuser)
         self.assertTrue(self.admin_user.is_staff)
+
+    def test_phone_number_is_created(self):
+        test_number = PhoneNumber(
+            number='9365551481',
+            number_type='Home',
+            UserProfile=self.user
+        )
+        test_number.save()
+        queried_number = PhoneNumber.objects.get(id=1)
+
+        self.assertEqual(test_number.number, queried_number.number)
+        self.assertEqual(test_number.number_type, queried_number.number_type)
+        self.assertEqual(queried_number.UserProfile.id, self.user.id)
