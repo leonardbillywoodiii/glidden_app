@@ -6,7 +6,7 @@ from datetime import datetime
 
 class AdminSiteTests(TestCase):
 
-    def setup(self):
+    def setUp(self):
         """Helper function that makes a user and superuser"""
         self.client = Client()
         self.admin_user = get_user_model().objects.create_superuser(
@@ -30,7 +30,6 @@ class AdminSiteTests(TestCase):
 
     def test_users_listed(self):
         """Test users successfuly created and listed in Admin Page"""
-        self.setup()
         url = reverse('admin:cms_userprofile_changelist')
         responce = self.client.get(url)
 
@@ -44,7 +43,6 @@ class AdminSiteTests(TestCase):
 
     def test_user_change_page(self):
         """Test Admin change page working correctly"""
-        self.setup()
         url = reverse('admin:cms_userprofile_change',
                       args=[self.user.id])
         responce = self.client.get(url)
@@ -53,7 +51,6 @@ class AdminSiteTests(TestCase):
 
     def test_user_add_page(self):
         """Test Admin add page is working correctly"""
-        self.setup()
         url = reverse('admin:cms_userprofile_add')
         responce = self.client.get(url)
 
