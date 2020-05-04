@@ -73,3 +73,4 @@ class ModelTests(TestCase):
         self.assertEqual(test_number.number, queried_number.number)
         self.assertEqual(test_number.number_type, queried_number.number_type)
         self.assertEqual(queried_number.UserProfile.id, self.user.id)
+        self.assertEqual(str(queried_number), 'Home: 936.555.1481')
