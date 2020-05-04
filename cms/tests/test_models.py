@@ -1,12 +1,15 @@
-from django.test import TestCase
-from django.contrib.auth import get_user_model
 from datetime import datetime
+
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+
+from cms.models import UserProfile
 
 
 class ModelTests(TestCase):
 
-    def test_create_user_with_email_successfull(self):
-        """Test creating a new user with and email successfull"""
+    def setUp(self):
+        """ Setup for model testing. Creates User and Superuser """
 
         email = 'test.test@test.com'
         password = 'TestPassword'
@@ -14,7 +17,7 @@ class ModelTests(TestCase):
         last_name = 'Smith'
         birthday = datetime(1983, 4, 17)
         sex = 'male'
-        user = get_user_model().objects.create_user(
+        self.user = get_user_model().objects.create_user(
             email=email,
             password=password,
             first_name=first_name,
@@ -23,8 +26,21 @@ class ModelTests(TestCase):
             sex=sex
         )
 
-        self.assertEqual(user.email, email)
-        self.assertTrue(user.check_password(password))
+        self.admin_user = get_user_model().objects.create_superuser(
+            email='test@test.com',
+            first_name='joe',
+            last_name='bloe',
+            password='!@#$%^&*()',
+            birthday=datetime(1983, 4, 17),
+            sex='male'
+        )
+
+    def test_create_user_with_email_successfull(self):
+        """Test creating a new user with and email successfull"""
+        user = UserProfile.objects.get(id=1)
+
+        self.assertEqual(self.user.email, user.email)
+        self.assertTrue(user.check_password('TestPassword'))
 
     def test_new_user_invalid_email(self):
         """Test if error on invalid or no email"""
@@ -41,14 +57,6 @@ class ModelTests(TestCase):
 
     def test_create_new_superuser_successfull(self):
         """Test creating a new superuser"""
-        user = get_user_model().objects.create_superuser(
-            email='test@test.com',
-            first_name='joe',
-            last_name='bloe',
-            password='!@#$%^&*()',
-            birthday=datetime(1983, 4, 17),
-            sex='male'
-        )
 
-        self.assertTrue(user.is_superuser)
-        self.assertTrue(user.is_staff)
+        self.assertTrue(self.admin_user.is_superuser)
+        self.assertTrue(self.admin_user.is_staff)
