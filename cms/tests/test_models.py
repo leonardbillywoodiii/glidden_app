@@ -90,10 +90,9 @@ class ModelTests(TestCase):
         test_address.save()
         queried_address = MemberAddress.objects.get(id=1)
 
-        object_string_test = '{}{}{}{}{}, {} {}'.format(
-            test_address.address_line_one, '\n',
-            test_address.address_line_two, '\n',
-            test_address.city, test_address.state, test_address.zipcode)
+        object_string_test = test_address.address_line_one + '\n' + \
+            test_address.address_line_two + '\n' + \
+            test_address.city + ', ' + test_address.state + ' ' + test_address.zipcode  # noqa: E501
 
         self.assertEqual(test_address.address_type,
                          queried_address.address_type)
