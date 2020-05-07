@@ -77,9 +77,62 @@ class PhoneNumber(models.Model):
 
     def __str__(self):
         """Return String representation as Cell: 936.555.1234"""
-        return "{}: {}.{}.{}".format(
+        return '{}: {}.{}.{}'.format(
             self.number_type,
             self.number[:3],
             self.number[3:6],
             self.number[6:]
         )
+
+
+class MemberAddress(models.Model):
+    address_type = models.CharField(max_length=100, default='Home')
+    address_line_one = models.CharField(max_length=100)
+    address_line_two = models.CharField(max_length=100, default=None)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    zipcode = models.CharField(max_length=50)
+    UserProfile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+    REQUIRED_FIELDS = ['address_type',
+                       'address_line_one',
+                       'address_line_two',
+                       'city',
+                       'state',
+                       'zipcode'
+                       ]
+
+    def __str__(self):
+        address = self.address_line_one + '\n'
+        if (self.address_line_two is not None or ''):
+            address += self.address_line_two + '\n'
+        address += self.city + ', ' + self.state + ' ' + self.zipcode
+        return address
+
+
+class GeneralAddress(models.Model):
+    name = models.CharField(max_length=100)
+    address_line_one = models.CharField(max_length=100)
+    address_line_two = models.CharField(max_length=100, default=None)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    zipcode = models.CharField(max_length=50)
+    added_by_user_id = models.ForeignKey(
+        UserProfile, on_delete=models.DO_NOTHING)
+
+    REQUIRED_FIELDS = ['name',
+                       'address_line_one',
+                       'address_line_two',
+                       'city',
+                       'state',
+                       'zipcode',
+                       'added_by_user_id'
+                       ]
+
+    def __str__(self):
+        address = self.name + '\n'
+        address += self.address_line_one + '\n'
+        if (self.address_line_two is not None or ''):
+            address += self.address_line_two + '\n'
+        address += self.city + ', ' + self.state + ' ' + self.zipcode
+        return address
