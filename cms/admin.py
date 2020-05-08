@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from cms import models
+from cms.models import UserProfile
 from django.utils.translation import gettext
 
 
@@ -44,4 +44,4 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
-admin.site.register(models.UserProfile, UserAdmin)
+admin.site.register(UserProfile, UserAdmin)

@@ -1,0 +1,36 @@
+from django.db import models
+from .GeneralAddress import GeneralAddress
+from .MemberAddress import MemberAddress
+
+
+class Ministry(models.Model):
+    name = models.CharField(max_length=100)
+    sex = models.CharField(max_length=10, choices=(
+        ('M', 'Male'), ('F', 'Female'), ('B', 'Both'),), default='Both')
+    age_lower_bounds = models.IntegerField(default=None)
+    age_upper_bounds = models.IntegerField(default=None)
+    age_nickname = models.CharField(max_length=50, default=None)
+    description = models.TextField()
+    general_address = models.ForeignKey(
+        GeneralAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
+    member_address = models.ForeignKey(
+        MemberAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    REQUIRED_FIELDS = ['name',
+                       'sex',
+                       'description',
+                       ]
+
+    def __str__(self):
+        ministry_str = self.name + '\n'
+        ministry_str += 'Gender: ' + self.sex + ' '
+        if (self.age_lower_bounds and self.age_upper_bounds is not None):
+            ministry_str += str(self.age_lower_bounds) + ' - ' + str(self.age_upper_bounds) + '\n'  # noqa E501
+        if (self.age_nickname is not None):
+            ministry_str += self.age_nickname + '\n'
+        ministry_str += self.description + '\n'
+        if (self.general_address is not None):
+            ministry_str += str(self.general_address)
+        elif(self.member_address is not None):
+            ministry_str += str(self.member_address)
+        return ministry_str
