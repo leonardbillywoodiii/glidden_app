@@ -12,24 +12,30 @@ class Migration(migrations.Migration):
     dependencies = [
         ('auth', '0011_update_proxy_permissions'),
     ]
-
     operations = [
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
+                ('password', models.CharField(
+                    max_length=128, verbose_name='password')),
+                ('last_login', models.DateTimeField(
+                    blank=True, null=True, verbose_name='last login')),
+                ('is_superuser', models.BooleanField(default=False,
+                                                     help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
                 ('email', models.EmailField(max_length=255, unique=True)),
                 ('first_name', models.CharField(max_length=255)),
                 ('last_name', models.CharField(max_length=255)),
                 ('birthday', models.DateField()),
-                ('sex', models.CharField(choices=[('M', 'Male'), ('F', 'Female')], max_length=10)),
+                ('sex', models.CharField(choices=[
+                 ('M', 'Male'), ('F', 'Female')], max_length=10)),
                 ('is_active', models.BooleanField(default=True)),
                 ('is_staff', models.BooleanField(default=False)),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
+                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+                                                  related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
+                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.',
+                                                            related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
             ],
             options={
                 'abstract': False,
@@ -38,50 +44,62 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='GeneralAddress',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('address_line_one', models.CharField(max_length=100)),
-                ('address_line_two', models.CharField(default=None, max_length=100)),
+                ('address_line_two', models.CharField(
+                    default=None, max_length=100)),
                 ('city', models.CharField(max_length=50)),
                 ('state', models.CharField(max_length=50)),
                 ('zipcode', models.CharField(max_length=50)),
-                ('added_by_user_id', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL)),
+                ('added_by_user_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='MemberAddress',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('address_type', models.CharField(default='Home', max_length=100)),
                 ('address_line_one', models.CharField(max_length=100)),
-                ('address_line_two', models.CharField(default=None, max_length=100)),
+                ('address_line_two', models.CharField(
+                    default=None, max_length=100)),
                 ('city', models.CharField(max_length=50)),
                 ('state', models.CharField(max_length=50)),
                 ('zipcode', models.CharField(max_length=50)),
-                ('UserProfile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('UserProfile', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='PhoneNumber',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('number', models.CharField(max_length=20)),
                 ('number_type', models.CharField(default='Cell', max_length=20)),
-                ('UserProfile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('UserProfile', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Ministry',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
-                ('sex', models.CharField(choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')], default='Both', max_length=10)),
+                ('sex', models.CharField(choices=[
+                 ('M', 'Male'), ('F', 'Female'), ('B', 'Both')], default='Both', max_length=10)),
                 ('age_lower_bounds', models.IntegerField(default=None)),
                 ('age_upper_bounds', models.IntegerField(default=None)),
                 ('age_nickname', models.CharField(default=None, max_length=50)),
                 ('description', models.TextField()),
-                ('general_address', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='cms.GeneralAddress')),
-                ('member_address', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='cms.MemberAddress')),
+                ('general_address', models.ForeignKey(blank=True, null=True,
+                                                      on_delete=django.db.models.deletion.DO_NOTHING, to='cms.GeneralAddress')),
+                ('member_address', models.ForeignKey(blank=True, null=True,
+                                                     on_delete=django.db.models.deletion.DO_NOTHING, to='cms.MemberAddress')),
             ],
         ),
     ]
