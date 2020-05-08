@@ -192,30 +192,6 @@ class ModelTests(TestCase):
         )
         test_ministry.save()
 
-        test_ministry_no_general_address = Ministry(
-            name='Women of Grace',
-            sex='Both',
-            age_lower_bounds=16,
-            age_upper_bounds=24,
-            age_nickname='Teens and Young Adults',
-            description=faker.paragraph(4, True, None),
-            general_address=None,
-            member_address=self.member_address
-        )
-        test_ministry_no_general_address.save()
-
-        test_ministry_no_member_address = Ministry(
-            name='Women of Grace',
-            sex='Both',
-            age_lower_bounds=16,
-            age_upper_bounds=24,
-            age_nickname='Teens and Young Adults',
-            description=faker.paragraph(4, True, None),
-            general_address=self.general_address,
-            member_address=None
-        )
-        test_ministry_no_member_address.save()
-
         queried_ministry = Ministry.objects.get(id=1)
 
         test_ministry_str_check = test_ministry.name + '\n' + \
@@ -242,4 +218,57 @@ class ModelTests(TestCase):
                          queried_ministry.general_address)
         self.assertEqual(test_ministry.member_address,
                          queried_ministry.member_address)
+        self.assertEqual(test_ministry_str_check, str(queried_ministry))
+
+    def test_ministry_is_created_no_general_address(self):
+        faker = Faker()
+        self.address_set_up()
+        test_ministry = Ministry(
+            name='Women of Grace',
+            sex='Both',
+            age_lower_bounds=16,
+            age_upper_bounds=24,
+            age_nickname='Teens and Young Adults',
+            description=faker.paragraph(4, True, None),
+            general_address=None,
+            member_address=self.member_address
+        )
+        self.assertFalse(test_ministry.save())
+        queried_ministry = Ministry.objects.get(id=1)
+
+        test_ministry_str_check = test_ministry.name + '\n' + \
+            'Gender: ' + test_ministry.sex + ' ' + \
+            str(test_ministry.age_lower_bounds) + ' - ' + \
+            str(test_ministry.age_upper_bounds) + '\n' + \
+            test_ministry.age_nickname + '\n' + \
+            test_ministry.description + '\n' + \
+            str(test_ministry.member_address)
+
+        self.assertEqual(test_ministry_str_check, str(queried_ministry))
+
+    def test_ministry_is_created_no_member_address(self):
+        faker = Faker()
+        self.address_set_up()
+        test_ministry = Ministry(
+            name='Women of Grace',
+            sex='Both',
+            age_lower_bounds=16,
+            age_upper_bounds=24,
+            age_nickname='Teens and Young Adults',
+            description=faker.paragraph(4, True, None),
+            general_address=self.general_address,
+            member_address=None
+        )
+        self.assertFalse(test_ministry.save())
+
+        queried_ministry = Ministry.objects.get(id=1)
+
+        test_ministry_str_check = test_ministry.name + '\n' + \
+            'Gender: ' + test_ministry.sex + ' ' + \
+            str(test_ministry.age_lower_bounds) + ' - ' + \
+            str(test_ministry.age_upper_bounds) + '\n' + \
+            test_ministry.age_nickname + '\n' + \
+            test_ministry.description + '\n' + \
+            str(test_ministry.general_address)
+
         self.assertEqual(test_ministry_str_check, str(queried_ministry))
