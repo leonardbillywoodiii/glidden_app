@@ -1,39 +1,14 @@
-from datetime import datetime
-
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from cms.models import PhoneNumber
+from .setup import (user_setup, admin_user_setup)
 
 
 class ModelTests(TestCase):
 
     def setUp(self):
-        """ Setup for model testing. Creates User and Superuser """
-
-        email = 'test.test@test.com'
-        password = 'TestPassword'
-        first_name = 'Joe'
-        last_name = 'Smith'
-        birthday = datetime(1983, 4, 17)
-        sex = 'male'
-        self.user = get_user_model().objects.create_user(
-            email=email,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-            birthday=birthday,
-            sex=sex
-        )
-
-        self.admin_user = get_user_model().objects.create_superuser(
-            email='test@test.com',
-            first_name='joe',
-            last_name='bloe',
-            password='!@#$%^&*()',
-            birthday=datetime(1983, 4, 17),
-            sex='male'
-        )
+        self.user = user_setup()
+        self.admin_user = admin_user_setup()
 
     def test_phone_number_is_created(self):
         test_number = PhoneNumber(

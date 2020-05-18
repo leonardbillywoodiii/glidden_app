@@ -1,67 +1,22 @@
-from datetime import datetime
-
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from faker import Faker
 
-from cms.models import Ministry, MemberAddress, GeneralAddress
+from cms.models import Ministry
+
+from .setup import (admin_user_setup, general_address_setup,
+                    member_address_setup, user_setup)
 
 
 class ModelTests(TestCase):
 
     def setUp(self):
-        """ Setup for model testing. Creates User and Superuser """
-
-        email = 'test.test@test.com'
-        password = 'TestPassword'
-        first_name = 'Joe'
-        last_name = 'Smith'
-        birthday = datetime(1983, 4, 17)
-        sex = 'male'
-        self.user = get_user_model().objects.create_user(
-            email=email,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-            birthday=birthday,
-            sex=sex
-        )
-
-        self.admin_user = get_user_model().objects.create_superuser(
-            email='test@test.com',
-            first_name='joe',
-            last_name='bloe',
-            password='!@#$%^&*()',
-            birthday=datetime(1983, 4, 17),
-            sex='male'
-        )
-
-    def address_set_up(self):
-        faker = Faker('en_US')
-        self.member_address = MemberAddress(
-            address_type='Home',
-            address_line_one=faker.street_address(),
-            address_line_two=faker.secondary_address(),
-            city=faker.city(),
-            state=faker.state(),
-            zipcode=faker.zipcode(),
-            UserProfile=self.user
-        )
-        self.general_address = GeneralAddress(
-            name=faker.company() + ' ' + faker.company_suffix(),
-            address_line_one=faker.street_address(),
-            address_line_two=faker.secondary_address(),
-            city=faker.city(),
-            state=faker.state(),
-            zipcode=faker.zipcode(),
-            added_by_user_id=self.admin_user
-        )
-        self.general_address.save()
-        self.member_address.save()
+        self.user = user_setup()
+        self.admin_user = admin_user_setup()
+        self.member_address = member_address_setup(self.user)
+        self.general_address = general_address_setup(self.admin_user)
 
     def test_ministry_is_created(self):
         faker = Faker()
-        self.address_set_up()
         test_ministry = Ministry(
             name='Women of Grace',
             sex='Both',
@@ -104,7 +59,6 @@ class ModelTests(TestCase):
 
     def test_ministry_is_created_no_general_address(self):
         faker = Faker()
-        self.address_set_up()
         test_ministry = Ministry(
             name='Women of Grace',
             sex='Both',
@@ -130,7 +84,6 @@ class ModelTests(TestCase):
 
     def test_ministry_is_created_no_member_address(self):
         faker = Faker()
-        self.address_set_up()
         test_ministry = Ministry(
             name='Women of Grace',
             sex='Both',

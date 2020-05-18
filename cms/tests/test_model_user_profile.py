@@ -10,19 +10,13 @@ class ModelTests(TestCase):
     def setUp(self):
         """ Setup for model testing. Creates User and Superuser """
 
-        email = 'test.test@test.com'
-        password = 'TestPassword'
-        first_name = 'Joe'
-        last_name = 'Smith'
-        birthday = datetime(1983, 4, 17)
-        sex = 'male'
         self.user = get_user_model().objects.create_user(
-            email=email,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-            birthday=birthday,
-            sex=sex
+            email='test.test@test.com',
+            password='TestPassword',
+            first_name='Joe',
+            last_name='Smith',
+            birthday=datetime(1983, 4, 17),
+            sex='male'
         )
 
         self.admin_user = get_user_model().objects.create_superuser(

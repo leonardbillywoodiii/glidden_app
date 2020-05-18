@@ -1,7 +1,7 @@
-from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
-from datetime import datetime
+
+from .setup import admin_user_setup, user_setup
 
 
 class AdminSiteTests(TestCase):
@@ -9,24 +9,10 @@ class AdminSiteTests(TestCase):
     def setUp(self):
         """Helper function that makes a user and superuser"""
         self.client = Client()
-        self.admin_user = get_user_model().objects.create_superuser(
-            email='test.admin@test.com',
-            first_name='Elias',
-            last_name='Jackson',
-            password='testpassword',
-            birthday=datetime(1983, 4, 17),
-            sex='male'
-        )
+        self.admin_user = admin_user_setup()
 
         self.client.force_login(self.admin_user)
-        self.user = get_user_model().objects.create_user(
-            email='test.user@test.com',
-            first_name='John',
-            last_name='Smith',
-            password='testpassword',
-            birthday=datetime(1983, 4, 17),
-            sex='male'
-        )
+        self.user = user_setup()
 
     def test_users_listed(self):
         """Test users successfuly created and listed in Admin Page"""
