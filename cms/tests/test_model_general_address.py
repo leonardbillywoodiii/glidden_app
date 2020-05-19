@@ -5,7 +5,7 @@ from cms.models import GeneralAddress
 from .setup import (user_setup, admin_user_setup)
 
 
-class ModelTests(TestCase):
+class GeneralAddressModelTests(TestCase):
 
     def setUp(self):
         self.user = user_setup()

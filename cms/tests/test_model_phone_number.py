@@ -4,7 +4,7 @@ from cms.models import PhoneNumber
 from .setup import (user_setup, admin_user_setup)
 
 
-class ModelTests(TestCase):
+class PhoneNumberModelTests(TestCase):
 
     def setUp(self):
         self.user = user_setup()

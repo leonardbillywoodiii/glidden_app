@@ -7,7 +7,7 @@ from .setup import (admin_user_setup, general_address_setup,
                     member_address_setup, user_setup)
 
 
-class ModelTests(TestCase):
+class MinistryModelTests(TestCase):
 
     def setUp(self):
         self.user = user_setup()

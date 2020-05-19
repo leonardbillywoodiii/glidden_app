@@ -5,7 +5,7 @@ from django.test import TestCase
 from cms.models import UserProfile
 
 
-class ModelTests(TestCase):
+class UserProfileModelTests(TestCase):
 
     def setUp(self):
         """ Setup for model testing. Creates User and Superuser """
