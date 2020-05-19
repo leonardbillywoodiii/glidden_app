@@ -64,7 +64,8 @@ def general_address_setup(admin_user: UserProfile):
     return general_address
 
 
-def ministry_setup(self):
+def ministry_setup(member_address: MemberAddress,
+                   general_address: GeneralAddress):
     faker = Faker('en_US')
     ministry = Ministry(
         name='Women and Men of Grace',
@@ -73,7 +74,8 @@ def ministry_setup(self):
         age_upper_bounds=24,
         age_nickname='Teens and Young Adults',
         description=faker.paragraph(4, True, None),
-        general_address=self.general_address,
-        member_address=self.member_address
+        general_address=general_address,
+        member_address=member_address
     )
     ministry.save()
+    return ministry
