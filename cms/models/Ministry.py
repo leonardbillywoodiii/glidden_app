@@ -16,10 +16,11 @@ class Ministry(models.Model):
     member_address = models.ForeignKey(
         MemberAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
 
-    REQUIRED_FIELDS = ['name',
-                       'sex',
-                       'description',
-                       ]
+    REQUIRED_FIELDS = [
+        'name',
+        'sex',
+        'description',
+    ]
 
     def __str__(self):
         ministry_str = self.name + '\n'
