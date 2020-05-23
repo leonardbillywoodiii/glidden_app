@@ -25,3 +25,13 @@ class EventModelTests(TestCase):
             GeneralAddress=self.general_address,
             MemberAddress=self.member_address
         )
+        test_event.save()
+
+        queried_event = Event.objects.get(id=1)
+
+        self.assertEqual(test_event.Ministry, queried_event.Ministry)
+        self.assertEqual(test_event.description, test_event.description)
+        self.assertEqual(test_event.GeneralAddress,
+                         queried_event.GeneralAddress)
+        self.assertEqual(test_event.MemberAddress,
+                         queried_event.MemberAddress)
