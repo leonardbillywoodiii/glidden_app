@@ -291,3 +291,7 @@ npm-debug.log
 yarn-error.log
 
 # End of https://www.gitignore.io/api/vue,vuejs,django,python,vagrant,pycharm+all
+.vs/VSWorkspaceState.json
+.vs/glidden_app/v16/.suo
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
