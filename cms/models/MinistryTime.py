@@ -23,3 +23,25 @@ class MinistryTime(models.Model):
         'start_time',
         'end_time'
     ]
+
+    def __str__(self):
+        if self.start_date is not None:
+            ministry_time_str = self.start_date + ' - '
+            ministry_time_str += self.end_date + '\n'
+        elif self.day_of_week is not 'N/A':
+            ministry_time_str = self.day_of_week + 's\n'
+        elif self.day_of_month is not 'N/A':
+            if self.day_of_month is 1 or 21 or 31:
+                ministry_time_str = self.day_of_month + 'st of every month\n'
+            elif self.day_of_month is 2 or 22:
+                ministry_time_str = self.day_of_month + 'nd of every month\n'
+            elif self.day_of_month is 3 or 23:
+                ministry_time_str = self.day_of_month + 'rd of every month\n'
+            else:
+                ministry_time_str = self.day_of_month + 'th of every month\n'
+        else:
+            ministry_time_str = self.day_of_year + ' day of every year\n'
+
+        ministry_time_str += '@ ' + self.start_time + ' till ' + self.end_time
+
+        return ministry_time_str
