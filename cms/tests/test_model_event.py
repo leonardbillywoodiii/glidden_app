@@ -1,13 +1,14 @@
 from django.test import TestCase
 from faker import Faker
-from datetime import date, time
+
+from cms.models import Event
 
 from .setup import (admin_user_setup, general_address_setup,
                     member_address_setup, ministry_setup, user_setup)
 
 
 class EventModelTests(TestCase):
-    
+
     def setUp(self):
         self.user = user_setup()
         self.admin_user = admin_user_setup()
