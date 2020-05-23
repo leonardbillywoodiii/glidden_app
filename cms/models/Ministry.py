@@ -11,9 +11,9 @@ class Ministry(models.Model):
     age_upper_bounds = models.IntegerField(default=None)
     age_nickname = models.CharField(max_length=50, default=None)
     description = models.TextField()
-    general_address = models.ForeignKey(
+    GeneralAddress = models.ForeignKey(
         GeneralAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
-    member_address = models.ForeignKey(
+    MemberAddress = models.ForeignKey(
         MemberAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     REQUIRED_FIELDS = [

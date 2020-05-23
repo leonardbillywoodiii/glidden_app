@@ -74,8 +74,8 @@ def ministry_setup(member_address: MemberAddress,
         age_upper_bounds=24,
         age_nickname='Teens and Young Adults',
         description=faker.paragraph(4, True, None),
-        general_address=general_address,
-        member_address=member_address
+        GeneralAddress=general_address,
+        MemberAddress=member_address
     )
     ministry.save()
     return ministry

@@ -3,8 +3,8 @@ from faker import Faker
 
 from cms.models import Ministry
 
-from .setup import (admin_user_setup, general_address_setup,
-                    member_address_setup, user_setup)
+from .setup import (admin_user_setup, GeneralAddress_setup,
+                    MemberAddress_setup, user_setup)
 
 
 class MinistryModelTests(TestCase):
@@ -12,8 +12,8 @@ class MinistryModelTests(TestCase):
     def setUp(self):
         self.user = user_setup()
         self.admin_user = admin_user_setup()
-        self.member_address = member_address_setup(self.user)
-        self.general_address = general_address_setup(self.admin_user)
+        self.MemberAddress = MemberAddress_setup(self.user)
+        self.GeneralAddress = GeneralAddress_setup(self.admin_user)
 
     def test_ministry_is_created(self):
         faker = Faker()
@@ -24,8 +24,8 @@ class MinistryModelTests(TestCase):
             age_upper_bounds=24,
             age_nickname='Teens and Young Adults',
             description=faker.paragraph(4, True, None),
-            general_address=self.general_address,
-            member_address=self.member_address
+            GeneralAddress=self.GeneralAddress,
+            MemberAddress=self.MemberAddress
         )
         test_ministry.save()
 
@@ -37,7 +37,7 @@ class MinistryModelTests(TestCase):
             str(test_ministry.age_upper_bounds) + '\n' + \
             test_ministry.age_nickname + '\n' + \
             test_ministry.description + '\n' + \
-            str(test_ministry.general_address)
+            str(test_ministry.GeneralAddress)
 
         self.assertEqual(test_ministry.name,
                          queried_ministry.name)
@@ -51,13 +51,13 @@ class MinistryModelTests(TestCase):
                          queried_ministry.age_nickname)
         self.assertEqual(test_ministry.description,
                          queried_ministry.description)
-        self.assertEqual(test_ministry.general_address,
-                         queried_ministry.general_address)
-        self.assertEqual(test_ministry.member_address,
-                         queried_ministry.member_address)
+        self.assertEqual(test_ministry.GeneralAddress,
+                         queried_ministry.GeneralAddress)
+        self.assertEqual(test_ministry.MemberAddress,
+                         queried_ministry.MemberAddress)
         self.assertEqual(test_ministry_str_check, str(queried_ministry))
 
-    def test_ministry_is_created_no_general_address(self):
+    def test_ministry_is_created_no_GeneralAddress(self):
         faker = Faker()
         test_ministry = Ministry(
             name='Women of Grace',
@@ -66,8 +66,8 @@ class MinistryModelTests(TestCase):
             age_upper_bounds=24,
             age_nickname='Teens and Young Adults',
             description=faker.paragraph(4, True, None),
-            general_address=None,
-            member_address=self.member_address
+            GeneralAddress=None,
+            MemberAddress=self.MemberAddress
         )
         self.assertFalse(test_ministry.save())
         queried_ministry = Ministry.objects.get(id=1)
@@ -78,11 +78,11 @@ class MinistryModelTests(TestCase):
             str(test_ministry.age_upper_bounds) + '\n' + \
             test_ministry.age_nickname + '\n' + \
             test_ministry.description + '\n' + \
-            str(test_ministry.member_address)
+            str(test_ministry.MemberAddress)
 
         self.assertEqual(test_ministry_str_check, str(queried_ministry))
 
-    def test_ministry_is_created_no_member_address(self):
+    def test_ministry_is_created_no_MemberAddress(self):
         faker = Faker()
         test_ministry = Ministry(
             name='Women of Grace',
@@ -91,8 +91,8 @@ class MinistryModelTests(TestCase):
             age_upper_bounds=24,
             age_nickname='Teens and Young Adults',
             description=faker.paragraph(4, True, None),
-            general_address=self.general_address,
-            member_address=None
+            GeneralAddress=self.GeneralAddress,
+            MemberAddress=None
         )
         self.assertFalse(test_ministry.save())
 
@@ -104,6 +104,6 @@ class MinistryModelTests(TestCase):
             str(test_ministry.age_upper_bounds) + '\n' + \
             test_ministry.age_nickname + '\n' + \
             test_ministry.description + '\n' + \
-            str(test_ministry.general_address)
+            str(test_ministry.GeneralAddress)
 
         self.assertEqual(test_ministry_str_check, str(queried_ministry))
