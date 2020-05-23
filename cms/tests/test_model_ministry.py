@@ -3,8 +3,8 @@ from faker import Faker
 
 from cms.models import Ministry
 
-from .setup import (admin_user_setup, GeneralAddress_setup,
-                    MemberAddress_setup, user_setup)
+from .setup import (admin_user_setup, general_address_setup,
+                    member_address_setup, user_setup)
 
 
 class MinistryModelTests(TestCase):
@@ -12,8 +12,8 @@ class MinistryModelTests(TestCase):
     def setUp(self):
         self.user = user_setup()
         self.admin_user = admin_user_setup()
-        self.MemberAddress = MemberAddress_setup(self.user)
-        self.GeneralAddress = GeneralAddress_setup(self.admin_user)
+        self.MemberAddress = member_address_setup(self.user)
+        self.GeneralAddress = general_address_setup(self.admin_user)
 
     def test_ministry_is_created(self):
         faker = Faker()

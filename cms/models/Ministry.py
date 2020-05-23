@@ -1,4 +1,5 @@
 from django.db import models
+
 from .GeneralAddress import GeneralAddress
 from .MemberAddress import MemberAddress
 
@@ -30,8 +31,8 @@ class Ministry(models.Model):
         if (self.age_nickname is not None):
             ministry_str += self.age_nickname + '\n'
         ministry_str += self.description + '\n'
-        if (self.general_address is not None):
-            ministry_str += str(self.general_address)
-        elif(self.member_address is not None):
-            ministry_str += str(self.member_address)
+        if (self.GeneralAddress is not None):
+            ministry_str += str(self.GeneralAddress)
+        elif(self.MemberAddress is not None):
+            ministry_str += str(self.MemberAddress)
         return ministry_str
