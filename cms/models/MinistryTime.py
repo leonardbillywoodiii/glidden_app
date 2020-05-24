@@ -1,9 +1,8 @@
 from django.db import models
-from .Ministry import Ministry
 
 
 class MinistryTime(models.Model):
-    Ministry = models.ForeignKey(Ministry, on_delete=models.CASCADE)
+    Ministry = models.ForeignKey('Ministry', on_delete=models.CASCADE)
     start_date = models.DateField(
         auto_now=False, auto_now_add=False, default=None)
     end_date = models.DateField(
@@ -28,14 +27,14 @@ class MinistryTime(models.Model):
         if self.start_date is not None:
             ministry_time_str = self.start_date + ' - '
             ministry_time_str += self.end_date + '\n'
-        elif self.day_of_week is not 'N/A':
+        elif self.day_of_week != 'N/A':
             ministry_time_str = self.day_of_week + 's\n'
-        elif self.day_of_month is not 'N/A':
-            if self.day_of_month is 1 or 21 or 31:
+        elif self.day_of_month != 'N/A':
+            if self.day_of_month == 1 or 21 or 31:
                 ministry_time_str = self.day_of_month + 'st of every month\n'
-            elif self.day_of_month is 2 or 22:
+            elif self.day_of_month == 2 or 22:
                 ministry_time_str = self.day_of_month + 'nd of every month\n'
-            elif self.day_of_month is 3 or 23:
+            elif self.day_of_month == 3 or 23:
                 ministry_time_str = self.day_of_month + 'rd of every month\n'
             else:
                 ministry_time_str = self.day_of_month + 'th of every month\n'

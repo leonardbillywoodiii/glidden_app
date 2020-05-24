@@ -1,5 +1,4 @@
 from django.db import models
-from .UserProfile import UserProfile
 
 
 class MemberAddress(models.Model):
@@ -9,7 +8,7 @@ class MemberAddress(models.Model):
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=50)
-    UserProfile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    UserProfile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
 
     REQUIRED_FIELDS = ['address_type',
                        'address_line_one',
