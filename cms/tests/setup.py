@@ -83,7 +83,9 @@ def ministry_setup(member_address: MemberAddress,
     return ministry
 
 
-def event_setup(ministry: Ministry, member_address: MemberAddress, general_address: GeneralAddress):
+def event_setup(ministry: Ministry,
+                member_address: MemberAddress,
+                general_address: GeneralAddress):
     faker = Faker('en_US')
     event = Event(
         Ministry=ministry,
