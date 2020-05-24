@@ -5,6 +5,8 @@ class PhoneNumber(models.Model):
     number = models.CharField(max_length=20)
     number_type = models.CharField(max_length=20, default='Cell')
     UserProfile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     REQUIRED_FIELDS = ['number', 'number_type']
 

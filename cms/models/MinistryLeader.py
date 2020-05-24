@@ -5,6 +5,8 @@ class MinistryLeader(models.Model):
     UserProfile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     description = models.TextField()
     Ministry = models.ForeignKey('Ministry', on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     REQUIRED_FIELDS = ['UserProfile',
                        'description',

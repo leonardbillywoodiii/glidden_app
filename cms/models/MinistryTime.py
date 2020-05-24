@@ -17,6 +17,8 @@ class MinistryTime(models.Model):
     day_of_year = models.SmallIntegerField(default=0)
     start_time = models.TimeField()
     end_time = models.TimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     REQUIRED_FIELDS = [
         'start_time',
