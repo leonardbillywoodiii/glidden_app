@@ -13,3 +13,13 @@ class Event(models.Model):
         'Ministry',
         'description'
     ]
+
+    def __str__(self):
+        event_str = self.name + '\n'
+        event_str += self.description + '\n'
+        if self.GeneralAddress is not None:
+            event_str += str(self.GeneralAddress)
+        else:
+            event_str += str(self.MemberAddress)
+
+        return event_str
