@@ -13,3 +13,12 @@ class Post(models.Model):
         'body',
         'UserProfile'
     ]
+
+    def __str__(self):
+        post_str = self.UserProfile.get_full_name() + '\n'
+        post_str += self.created_at
+        if self.created_at is not self.updated_at:
+            post_str += ' modified: ' + self.updated_at
+        post_str += '\n' + self.title + '\n'
+        post_str += self.body
+        return post_str
