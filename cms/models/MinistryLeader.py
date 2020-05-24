@@ -1,12 +1,10 @@
 from django.db import models
-from .UserProfile import UserProfile
-from .Ministry import Ministry
 
 
 class MinistryLeader(models.Model):
-    UserProfile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    UserProfile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     description = models.TextField()
-    Ministry = models.ForeignKey(Ministry, on_delete=models.DO_NOTHING)
+    Ministry = models.ForeignKey('Ministry', on_delete=models.DO_NOTHING)
 
     REQUIRED_FIELDS = ['UserProfile',
                        'description',

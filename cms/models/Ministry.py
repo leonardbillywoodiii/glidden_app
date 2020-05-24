@@ -1,8 +1,5 @@
 from django.db import models
 
-from .GeneralAddress import GeneralAddress
-from .MemberAddress import MemberAddress
-
 
 class Ministry(models.Model):
     name = models.CharField(max_length=100)
@@ -13,9 +10,9 @@ class Ministry(models.Model):
     age_nickname = models.CharField(max_length=50, default=None)
     description = models.TextField()
     GeneralAddress = models.ForeignKey(
-        GeneralAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
+        'GeneralAddress', on_delete=models.DO_NOTHING, blank=True, null=True)
     MemberAddress = models.ForeignKey(
-        MemberAddress, on_delete=models.DO_NOTHING, blank=True, null=True)
+        'MemberAddress', on_delete=models.DO_NOTHING, blank=True, null=True)
 
     REQUIRED_FIELDS = [
         'name',
