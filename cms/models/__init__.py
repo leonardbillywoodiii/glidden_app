@@ -6,8 +6,9 @@ from .MinistryLeader import MinistryLeader
 from .MinistryTime import MinistryTime
 from .PhoneNumber import PhoneNumber
 from .UserProfile import UserProfile, UserProfileManager
+from .Post import Post
 
 __all__ = ['GeneralAddress', 'MemberAddress', 'Ministry',
            'PhoneNumber', 'UserProfile', 'UserProfileManager',
-           'MinistryLeader', 'MinistryTime', 'Event'
+           'MinistryLeader', 'MinistryTime', 'Event', 'Post'
            ]
