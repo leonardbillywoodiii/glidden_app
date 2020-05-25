@@ -1,8 +1,10 @@
-from django.contrib.auth import get_user_model
-
 import random
-from cms.models import MemberAddress, GeneralAddress, Ministry, UserProfile
+
+from django.contrib.auth import get_user_model
 from faker import Faker
+
+from cms.models import (Event, GeneralAddress, MemberAddress, Ministry,
+                        UserProfile)
 
 
 def user_setup():
@@ -79,3 +81,17 @@ def ministry_setup(member_address: MemberAddress,
     )
     ministry.save()
     return ministry
+
+
+def event_setup(ministry: Ministry,
+                member_address: MemberAddress,
+                general_address: GeneralAddress):
+    faker = Faker('en_US')
+    event = Event(
+        Ministry=ministry,
+        description=faker.paragraph(2, True, None),
+        GeneralAddress=general_address,
+        MemberAddress=member_address
+    )
+    event.save()
+    return event

@@ -9,8 +9,11 @@ class MemberAddress(models.Model):
     state = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=50)
     UserProfile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+<<<<<<< HEAD
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+=======
+>>>>>>> master
 
     REQUIRED_FIELDS = ['address_type',
                        'address_line_one',

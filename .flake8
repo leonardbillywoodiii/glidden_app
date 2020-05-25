@@ -4,5 +4,6 @@ exclude =
     __pycache__,
     env,
     .idea,
-    .vscode
-    ./cms/migrations
+    .vscode,
+    ./cms/migrations,
+    .vs

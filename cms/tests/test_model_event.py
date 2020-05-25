@@ -21,6 +21,7 @@ class EventModelTests(TestCase):
         faker = Faker('en_US')
         test_event = Event(
             Ministry=self.ministry,
+            name='Plates of Grace',
             description=faker.paragraph(2, True, None),
             GeneralAddress=self.general_address,
             MemberAddress=self.member_address
@@ -30,6 +31,7 @@ class EventModelTests(TestCase):
         queried_event = Event.objects.get(id=1)
 
         self.assertEqual(test_event.Ministry, queried_event.Ministry)
+        self.assertEqual(test_event.name, queried_event.name)
         self.assertEqual(test_event.description, test_event.description)
         self.assertEqual(test_event.GeneralAddress,
                          queried_event.GeneralAddress)
