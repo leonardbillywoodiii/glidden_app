@@ -4,13 +4,9 @@ from django.db import models
 class MinistryLeader(models.Model):
     UserProfile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     description = models.TextField()
-<<<<<<< HEAD
     Ministry = models.ForeignKey('Ministry', on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-=======
-    Ministry = models.ForeignKey('Ministry', on_delete=models.CASCADE)
->>>>>>> master
 
     REQUIRED_FIELDS = ['UserProfile',
                        'description',

@@ -11,9 +11,6 @@ from .Post import Post
 
 __all__ = ['GeneralAddress', 'MemberAddress', 'Ministry',
            'PhoneNumber', 'UserProfile', 'UserProfileManager',
-<<<<<<< HEAD
-           'MinistryLeader', 'MinistryTime', 'Event', 'Post'
-=======
-           'MinistryLeader', 'MinistryTime', 'Event', 'EventTime'
->>>>>>> master
+           'MinistryLeader', 'MinistryTime', 'Event', 'Post',
+           'EventTime'
            ]

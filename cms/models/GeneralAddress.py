@@ -10,11 +10,8 @@ class GeneralAddress(models.Model):
     zipcode = models.CharField(max_length=50)
     added_by_user_id = models.ForeignKey(
         'UserProfile', on_delete=models.DO_NOTHING)
-<<<<<<< HEAD
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-=======
->>>>>>> master
 
     REQUIRED_FIELDS = ['name',
                        'address_line_one',

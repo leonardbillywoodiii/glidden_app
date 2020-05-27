@@ -13,11 +13,8 @@ class Ministry(models.Model):
         'GeneralAddress', on_delete=models.DO_NOTHING, blank=True, null=True)
     MemberAddress = models.ForeignKey(
         'MemberAddress', on_delete=models.DO_NOTHING, blank=True, null=True)
-<<<<<<< HEAD
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-=======
->>>>>>> master
 
     REQUIRED_FIELDS = [
         'name',
