@@ -118,3 +118,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'cms.UserProfile'
+
+MEDIA_ROOT = '../cms/media/'
