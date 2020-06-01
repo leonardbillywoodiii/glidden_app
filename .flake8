@@ -6,4 +6,5 @@ exclude =
     .idea,
     .vscode,
     ./cms/migrations,
-    .vs
+    .vs,
+    ./cms/media/
