@@ -119,4 +119,4 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'cms.UserProfile'
 
-MEDIA_ROOT = '../cms/media/'
+MEDIA_ROOT = './cms/media/'
