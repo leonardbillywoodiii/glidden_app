@@ -293,3 +293,4 @@ yarn-error.log
 
 # End of https://www.gitignore.io/api/vue,vuejs,django,python,vagrant,pycharm+all
 
+./cms/media/
